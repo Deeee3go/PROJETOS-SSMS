@@ -23,3 +23,30 @@ ALTER TABLE ClienteFIT ALTER COLUMN nome varchar(55) not null
 GO
 
 ALTER TABLE ClienteFIT DROP COLUMN sobrenome 
+
+
+
+GO
+
+
+CREATE TABLE VENDA (
+
+datavenda date  not null  CONSTRAINT  dfdatavenda DEFAULT (getdate())
+, quantidade smallint not null CONSTRAINT	dfqtd DEFAULT(1)
+,numcliente int not null
+, CONSTRAINT pkvenda PRIMARY KEY (datavenda)
+,CONSTRAINT fkvenda FOREIGN KEY (numcliente) REFERENCES ClienteFIT(numcliente)
+);
+
+
+ALTER TABLE ClienteFIT ADD telefone varchar (14);
+ALTER TABLE ClienteFIT ADD dataentrada datetime;
+ALTER TABLE ClienteFIT ADD idade tinyint not null;
+ALTER TABLE ClienteFIT ADD CONSTRAINT ckidade CHECK (idade between 18 and 155);
+ALTER TABLE ClienteFIT ADD CONSTRAINT cktelefone CHECK (
+telefone LIKE '[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]' OR
+telefone LIKE '([0-9][0-9][0-9]) [0-9][0-9][0-9]-[0-9][0-9])'
+);
+
+
+
